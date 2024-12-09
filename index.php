@@ -14,13 +14,17 @@ $query = "SELECT * FROM mahasiswa";
 $result = mysqli_query($conn, $query);
 
 if (!$result) {
+  echo "Query failed: " . mysqli_error($conn);
+  die();
   die("Query failed: " . mysqli_error($conn));
 }
 
 $users = [];
 while ($row = mysqli_fetch_assoc($result)) {
   $users[] = $row;
+  echo $row["Nama"];
 }
+die()
 ?>
 <!DOCTYPE html>
 <html lang="en">
