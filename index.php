@@ -1,5 +1,9 @@
 <?php
 include_once './config/connection.php';
+if (!isset($conn)) {
+  echo "Connection failed: MYSQLi not found";
+  exit();
+}
 $query = "SELECT * FROM mahasiswa";
 $result = mysqli_query($conn, $query);
 
