@@ -1,11 +1,11 @@
 <?php
-if (file_exists('config/connection.php')) {
-  echo "File ditemukan!";
-} else {
-  echo "File tidak ditemukan!";
-}
-die();
-include_once 'config/connection.php';
+// if (file_exists('config/connection.php')) {
+//   echo "File ditemukan!";
+// } else {
+//   echo "File tidak ditemukan!";
+// }
+// die();
+include 'config/connection.php';
 // if (!isset($conn)) {
 //   echo "Connection failed: MYSQLi not found";
 //   exit();
