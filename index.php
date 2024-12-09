@@ -1,5 +1,5 @@
 <?php
-include_once 'config/connection.php';
+include_once './config/connection.php';
 $query = "SELECT * FROM mahasiswa";
 $result = mysqli_query($conn, $query);
 
