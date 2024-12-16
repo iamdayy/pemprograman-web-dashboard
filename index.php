@@ -1,30 +1,18 @@
 <?php
-// if (file_exists('config/connection.php')) {
-//   echo "File ditemukan!";
-// } else {
-//   echo "File tidak ditemukan!";
-// }
-// die();
-include 'config/connection.php';
-// if (!isset($conn)) {
-//   echo "Connection failed: MYSQLi not found";
-//   exit();
-// }
-$query = "SELECT * FROM mahasiswa";
+session_start();
+
+include_once 'config/connection.php';
+$query = "SELECT * FROM mahasiswa WHERE deleted_at=0";
 $result = mysqli_query($conn, $query);
 
 if (!$result) {
-  echo "Query failed: " . mysqli_error($conn);
-  die();
   die("Query failed: " . mysqli_error($conn));
 }
 
 $users = [];
 while ($row = mysqli_fetch_assoc($result)) {
   $users[] = $row;
-  echo $row["Nama"];
 }
-die()
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -132,24 +120,39 @@ die()
             <span class="nav-link-text ms-1">Profile</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link " href="sign-in.html">
-            <div
-              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-single-copy-04 text-dark text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Sign In</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="sign-up.html">
-            <div
-              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-collection text-dark text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Sign Up</span>
-          </a>
-        </li>
+        <?php
+        if (isset($_SESSION['user_id'])) {
+        ?>
+          <li class="nav-item">
+            <a class="nav-link " href="auth/signout.php">
+              <div
+                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Sign Out</span>
+            </a>
+          </li>
+        <?php
+        } else { ?>
+          <li class="nav-item">
+            <a class="nav-link " href="sign-in.php">
+              <div
+                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-single-copy-04 text-dark text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Sign In</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="sign-up.php">
+              <div
+                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-collection text-dark text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Sign Up</span>
+            </a>
+          </li>
+        <?php } ?>
       </ul>
     </div>
   </aside>
@@ -173,12 +176,21 @@ die()
             </div>
           </div>
           <ul class="navbar-nav  justify-content-end">
-            <li class="nav-item d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
-                <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">Sign In</span>
-              </a>
-            </li>
+            <?php if (isset($_SESSION['user_id'])) { ?>
+              <li class="nav-item d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+                  <i class="fa fa-user me-sm-1"></i>
+                  <span class="d-sm-inline d-none"><?= $_SESSION['username'] ?></span>
+                </a>
+              </li>
+            <?php } else { ?>
+              <li class="nav-item d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+                  <i class="fa fa-user me-sm-1"></i>
+                  <span class="d-sm-inline d-none">Sign In</span>
+                </a>
+              </li>
+            <?php } ?>
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
                 <div class="sidenav-toggler-inner">

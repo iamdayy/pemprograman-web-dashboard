@@ -1,6 +1,6 @@
 <?php
 include_once '../config/connection.php';
-$query = "SELECT * FROM mahasiswa";
+$query = "SELECT * FROM mahasiswa WHERE deleted_at=0";
 $result = mysqli_query($conn, $query);
 
 if (!$result) {

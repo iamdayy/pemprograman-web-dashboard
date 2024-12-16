@@ -6,7 +6,7 @@ require_once "../config/connection.php";
 $NIM = $_POST['NIM'];
 
 // sql to delete a record
-$sql = "DELETE FROM mahasiswa WHERE NIM=$NIM";
+$sql = "UPDATE mahasiswa SET deleted_at=1 WHERE NIM=$NIM";
 
 
 if ($conn->query($sql) === TRUE) {
