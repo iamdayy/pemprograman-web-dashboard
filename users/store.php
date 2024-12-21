@@ -17,7 +17,7 @@ $stmt->bind_param("ssssii", $NIM, $Nama, $Jekel, $Kelas, $Angkatan, $Semester);
 
 // Execute the statement
 if ($stmt->execute()) {
-    header("Location: /users");
+    header("Location: ./users");
 } else {
     echo "Data gagal disimpan";
 }

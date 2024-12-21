@@ -1,3 +1,31 @@
+<?php
+session_start();
+include_once('./config/connection.php');
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+
+  $query = "SELECT * FROM users WHERE username = '$username'";
+  $result = $conn->query($query);
+
+  if ($result->num_rows == 1) {
+    $user = $result->fetch_assoc();
+    if (password_verify($password, $user['password'])) {
+      $_SESSION['user_id'] = $user['id'];
+      $_SESSION['username'] = $user['username'];
+      header("Location: ./index.php");
+      exit();
+    } else {
+      $error = "Invalid password.";
+    }
+  } else {
+    $error = "Invalid username.";
+  }
+  // header("Location: ../sign-in.php");
+  echo "<div class='alert alert-danger'>$error</div>";
+}
+?>
 <!--
 =========================================================
 * Argon Dashboard 3 - v2.1.0
@@ -69,13 +97,13 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-2" href="sign-up.html">
+                  <a class="nav-link me-2" href="sign-up.php">
                     <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
                     Sign Up
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-2" href="sign-in.html">
+                  <a class="nav-link me-2" href="sign-in.php">
                     <i class="fas fa-key opacity-6 text-dark me-1"></i>
                     Sign In
                   </a>
@@ -106,7 +134,7 @@
                   <p class="mb-0">Enter your Username and password to sign in</p>
                 </div>
                 <div class="card-body">
-                  <form role="form" method="POST" action="/auth/signin.php">
+                  <form role="form" method="POST">
                     <div class="mb-3">
                       <input type="text" class="form-control form-control-lg" placeholder="Username" name="username" aria-label="Username">
                     </div>
