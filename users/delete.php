@@ -10,7 +10,7 @@ $sql = "UPDATE mahasiswa SET deleted_at=1 WHERE NIM=$NIM";
 
 
 if ($conn->query($sql) === TRUE) {
-    header("Location: ./users");
+    header("Location: ../users");
 } else {
     echo "Error deleting record: " . $conn->error;
 }

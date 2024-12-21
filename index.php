@@ -73,7 +73,7 @@ while ($row = mysqli_fetch_assoc($result)) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./users">
+          <a class="nav-link " href="../users">
             <div
               class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-calendar-grid-58 text-dark text-sm opacity-10"></i>
@@ -465,7 +465,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <div class="card-header pb-0 p-3">
               <div class="d-flex justify-content-between">
                 <h6>Users table</h6>
-                <a href="/users/create.php"
+                <a href="../users/create.php"
                   class="btn btn-primary btn-sm mb-3">Create</a>
               </div>
             </div>

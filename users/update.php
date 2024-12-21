@@ -13,7 +13,7 @@ $sql = "UPDATE mahasiswa SET Nama='" . $Nama . "', Jekel='" . $Jekel . "', Kelas
 
 // Execute the statement
 if ($conn->query($sql) === TRUE) {
-    header("Location: ./users");
+    header("Location: ../users");
 } else {
     echo "Error updating record: " . $stmt->error;
 }
